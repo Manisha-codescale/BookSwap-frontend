@@ -7,16 +7,41 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from '../styles/SignUpStyles.js';
+//import {auth, createUserWithEmailAndPassword} from '../firebaseConfig.js';
+import auth from "@react-native-firebase/auth"
 
 const SignUpScreen = () => {
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignUp = () => {
-    console.log('Sign Up clicked');
+  const handleSignUp = async () => {
+    if (
+      name === '' ||
+      email === '' ||
+      age === '' ||
+      password === '' ||
+      confirmPassword === ''
+    ) {
+      alert('All fields are required!');
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+    
+    auth().createUserWithEmailAndPassword(email,password)
+    .then(() => {
+      console.log('User account created & signed in!');
+      alert('User account created & signed in!');
+    })
+    .catch(error => {
+      alert(error.message);
+    })
   };
 
   return (
