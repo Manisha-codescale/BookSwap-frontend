@@ -1,6 +1,7 @@
 import { View, Image, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons'; 
+import Icon from 'react-native-vector-icons'
 
 const books = [
     {
@@ -42,20 +43,26 @@ const AddedBooksScreen = () => {
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 {books.map((book, index) => (
                     <View key={index} style={styles.card}>
+                         <TouchableOpacity style={styles.editIcon}>
+                            <Icon name = "create-outline" size = {20} color ="555"/>
+                        </TouchableOpacity>
                         <Image source={{ uri: book.image }} style={styles.bookImage} />
                         <View style={styles.bookInfo}>
+                            <Text style={styles.name}>{book.name}</Text>
                             <Text style ={styles.isbn}>ISBN {book.ISBN}</Text>
-                            <Text style ={styles.name}>{book.name}</Text>
                             <Text style ={styles.author}>{book.author}</Text>
                             <Text style ={styles.details}>{book.category}</Text>
-                            <Text style ={styles.condition}>{book.isConditionUsed ? 'Used' : 'New'}</Text>
-                
-    
-         
-          </View>
-          {/* <TouchableOpacity style={styles.editIcon}>
+                            <View style={styles.textGap}>
+                            <View style = {styles.column}>
+                                    <Text style={styles.details}>US$ {book.price}{'\u2003\u2003\u2003\u2003'} </Text></View>
+                                    <View style = {styles.column}>
+                                    <Text style={styles.details}> Age : {book.age_limit}+{'\u2003\u2003\u2003\u2003\u2003'}</Text></View>
+                                    <View style = {styles.column}> <Text style={styles.condition}>{book.isConditionUsed ? 'Used' : 'New'}</Text></View>
+                            </View>
+        </View>
+           {/* <TouchableOpacity style={styles.editIcon}>
             <MaterialIcons name="edit" size={20} color="#333" />
-          </TouchableOpacity> */}
+          </TouchableOpacity>  */}
         </View>
       ))}
     </ScrollView>
@@ -82,7 +89,7 @@ header: {
 scrollContent: {
   paddingHorizontal: 16,
   paddingBottom: 100,
-},
+    },
 card: {
   flexDirection: 'row',
   backgroundColor: '#fafafa',
@@ -91,7 +98,20 @@ card: {
   borderRadius: 12,
   elevation: 1,
   alignItems: 'center',
-},
+    },
+    column: {
+        flex: 1,
+        alignItems: 'center',
+    },
+textGap: {
+    flexDirection: 'row',
+    width: ' 100%',
+    fontSize: 13,
+    color: '#555',
+    marginTop: 2,
+    justifyContent: 'space-between',
+    marginVertical: 8,
+    },
 bookImage: {
   width: 60,
   height: 90,
@@ -120,14 +140,24 @@ details: {
     color: '#555',
   marginTop: 2,
     },
-condition: {
+viewRow: {
         fontSize: 13,
-        color: '#dc143c',
-        marginTop: 2,
+        color: '#555',
+      marginTop: 2,
+        },
+condition: {
+        //fontSize: 13,
+    color: '#dc143c',
+    textAlign: 'center' ,
+        //marginTop: 2,
 },
 editIcon: {
-  padding: 6,
-},
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
+    padding: 5,
+  },
 fab: {
   position: 'absolute',
   bottom: 20,
