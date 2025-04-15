@@ -1,128 +1,129 @@
- import { View, Text,ScrollView, TouchableOpacity, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  Alert,
+  Platform,
+} from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
+import Icon from 'react-native-vector-icons/Feather';
+import styles from '../styles/EditProfileStyles.js'; 
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 
 const EditProfileScreen = () => {
-  const user = {
-    username: 'johndoe777',
-    name: 'John Doe',
-    email: 'johnn@email.com',
-    date_of_birth: '1997-02-07',
-    age: 26,
-    address: 'No. 43, Main Road, Negombo',
-    imageUrl: 'https://1857756846.rsc.cdn77.org/static/features/ai-face-generator/man1-swap-2.jpeg',
+  const [profileImage, setProfileImage] = useState(
+    'https://1857756846.rsc.cdn77.org/static/features/ai-face-generator/man1-swap-2.jpeg',
+  );
+
+  const handleImagePick = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+      cropperCircleOverlay: true,
+    })
+      .then(image => {
+        setProfileImage(image.path);
+      })
+      .catch(err => {
+        console.log('Image pick cancelled or error:', err);
+      });
   };
+
+  const [user, setUser] = useState({
+    username: 'Alan777',
+    name: 'Alan Ray',
+    email: 'alanray@email.com',
+    date_of_birth: '2000-02-07',
+    address: 'No. 43, Park Street, Paris',
+  });
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleDateChange = (event, selectedDate) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      const formattedDate = selectedDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+      handleChange('date_of_birth', formattedDate);
+    }
+  };
+
+  const handleChange = (field, value) => {
+    setUser({...user, [field]: value});
+  };
+
+  const handleSaveChanges = () => {
+    if (!validateEmail(user.email)) {
+      Alert.alert('Invalid Email', 'Please enter a valid email address.');
+      return;
+    }
+    console.log('Changes saved', user);
+    Alert.alert('Changes saved successfully!');
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-    <View>
-      <View style={styles.container}>
-      <TouchableOpacity>
-        <Image
-              source={{ uri: user.imageUrl }}
-          style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 26 }}
-        />
-      </TouchableOpacity>
-
-      <View style={styles.infoBox}>
-        <Text style={styles.label}>Username</Text>
-        <Text style={styles.value}>{user.username}</Text>
+      <View style={styles.imageContainer}>
+        <TouchableOpacity onPress={handleImagePick} style={styles.imageWrapper}>
+          <Image source={{uri: profileImage}} style={styles.profileImage} />
+          <View style={styles.cameraIcon}>
+            <Icon name="camera" size={22} color="#fff" />
           </View>
-          <View style={styles.infoBox}>
-        <Text style={styles.label}>Name</Text>
-        <Text style={styles.value}>{user.name}</Text>
-      </View>
-      <View style={styles.infoBox}>
-        <Text style={styles.label}>Email</Text>
-        <Text style={styles.value}>{user.email}</Text>
-      </View>
-      <View style={styles.infoBox}>
-        <Text style={styles.label}>Age</Text>
-        <Text style={styles.value}>{user.age}</Text>
+        </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Edit Profile</Text>
-      </TouchableOpacity>
+      {[
+        {label: 'Username', field: 'username', keyboard: 'default'},
+        {label: 'Name', field: 'name', keyboard: 'default'},
+        {label: 'Email', field: 'email', keyboard: 'email-address'},
+        {label: 'Date of Birth', field: 'date_of_birth', keyboard: 'default'},
+        {label: 'Address', field: 'address', keyboard: 'default'},
+      ].map((item, index) => (
+        <View key={index} style={styles.infoBox}>
+          <Text style={styles.label}>{item.label}</Text>
 
+          {item.field === 'date_of_birth' ? (
+            <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.dateInput}>
+              <Text>{user.date_of_birth || `Select ${item.label}`}</Text>
+            </TouchableOpacity>
+          ) : (
+            <TextInput
+              style={styles.input}
+              value={user[item.field]}
+              keyboardType={item.keyboard}
+              placeholder={`Enter ${item.label}`}
+              onChangeText={(val) => handleChange(item.field, val)}
+            />
+          )}
+        </View>
+      ))}
+
+      {showDatePicker && (
+        <DateTimePicker
+          value={user.date_of_birth ? new Date(user.date_of_birth) : new Date()}
+          mode="date"
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          onChange={handleDateChange}
+        />
+      )}
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Change Password</Text>
+        <Text style={styles.buttonText}>Save Changes</Text>
       </TouchableOpacity>
-    </View>
-      </View>
-      </ScrollView>
-  )
-}
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      //justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#fff',
-      padding: 10,
-    paddingTop: 50,
-  },
-  isbn: {
-    fontSize: 14,
-    color: '#555',
-    marginBottom: 4,
-  },
-  name: {
-    fontSize: 26,
-    fontWeight: '700',
-      textAlign: 'center',
-      marginBottom: 8,
-      color: '#1d3557',
-  },
-  author: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 10,
-  },
-  image: {
-    width: 160,
-    height: 240,
-    resizeMode: 'contain',
-    marginVertical: 16,
-    borderRadius: 10,
-  },
-  infoBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginVertical: 4,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#ccc',
-    paddingBottom: 4,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  value: {
-    fontSize: 16,
-    color: '#555',
-  },
-  button: {
-    backgroundColor: '#1d3557',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    marginTop: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  descriptionBox: {
-    marginTop: 20,
-    width: '100%',
-  },
-  description: {
-    fontSize: 15,
-    color: '#444',
-    marginTop: 4,
-    lineHeight: 22,
-  },
-});
+      <TouchableOpacity style={styles.button} onPress={handleSaveChanges}>
+        <Text style={styles.buttonText}>Edit Password</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
+};
 
 export default EditProfileScreen;

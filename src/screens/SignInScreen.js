@@ -8,9 +8,8 @@ import {
   Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
-import auth, { sendPasswordResetEmail } from '@react-native-firebase/auth';
+import auth, {sendPasswordResetEmail} from '@react-native-firebase/auth';
 import styles from '../styles/SignInStyles.js';
-
 
 const SignInScreen = () => {
   const [email, setEmail] = useState('');
@@ -66,8 +65,7 @@ const SignInScreen = () => {
       .catch(err => {
         Alert.alert('Error', err.message);
       });
-  }
-  
+  };
 
   return (
     <View style={styles.container}>
