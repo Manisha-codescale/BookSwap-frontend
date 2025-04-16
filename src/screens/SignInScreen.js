@@ -16,13 +16,18 @@ import {
   GoogleSignin,
 } from '@react-native-google-signin/google-signin';
 import { GOOGLE_WEB_CLIENT_ID } from '@env';
+import {
+  createStaticNavigation,
+  useNavigation,
+} from '@react-navigation/native';
 
 GoogleSignin.configure({
   webClientId:
-    'GOOGLE_WEB_CLIENT_ID',
+    '212138581207-io75bs1fco12t8r9fso7rb73juhjq5ba.apps.googleusercontent.com',
 });
 
 const SignInScreen = () => {
+  const navigation = useNavigation();
   const [isInProgress, setIsInProgress] = useState(false);
   async function onGoogleButtonPress() {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
@@ -118,10 +123,10 @@ const SignInScreen = () => {
           Forgot Password?
         </Text>
       </Pressable>
-      <TouchableOpacity style={styles.signIn} onPress={onLogin}>
+      <TouchableOpacity style={styles.signIn} onPress ={() => navigation.navigate('TabNavigator')}>
         <Text style={styles.signInText}>Sign In</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.signIn}>
+      <TouchableOpacity style={styles.signIn} onPress={() => navigation.navigate('SignUp')}>
         <Text style={styles.signInText}>Sign Up</Text>
       </TouchableOpacity>
 
