@@ -1,46 +1,63 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 
 const SignInstyles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#fff',
-    },
-    Signin: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 20,
-    },
-    inputBox: {
-      width: '80%',
-      padding: 10,
-      marginBottom: 20,
-      borderWidth: 1,
-      borderColor: '#ccc',
-      borderRadius: 5,
-    },
-    signIn: {
-      backgroundColor: '#1d3557',
-      paddingVertical: 15,
-      paddingHorizontal: 135,
-      borderRadius: 5,
-    },
-    signInText: {
-      color: '#fff',
-      fontSize: 16,
-    },
-    forgotPw: {
-      borderColor: '#ccc',
-      textAlign: 'right',
-      marginBottom: 20,
-    },
-    forgotPwText: {
-        color: '#007BFF',
-        textDecorationLine: 'underline',
-      },
-      pressed: {
-        opacity: 0.5,
-      },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  Signin: {
+    fontSize: 34,
+    fontWeight: 'bold',
+    marginBottom: 50,
+  },
+  inputBox: {
+    width: '80%',
+    padding: 10,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  },
+  rowView: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  googleContent: {
+    backgroundColor: '#007BF3',
+    paddingVertical: 10,
+    paddingHorizontal: 70,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  googleLogo: {
+    width: 35,
+    height: 35,
+    marginRight: 10,
+  },
+  signIn: {
+    backgroundColor: '#1d3557',
+    paddingVertical: 15,
+    paddingHorizontal: 135,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  signInText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  forgotPw: {
+    borderColor: '#ccc',
+    textAlign: 'right',
+    marginBottom: 40,
+  },
+  forgotPwText: {
+    color: '#007BFF',
+    textDecorationLine: 'underline',
+  },
+  pressed: {
+    opacity: 0.5,
+  },
 });
 export default SignInstyles;
