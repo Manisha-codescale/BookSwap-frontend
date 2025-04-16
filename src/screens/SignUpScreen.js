@@ -25,7 +25,7 @@ const SignUpScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignUp = async () => {
-    navigation.navigate('TabNavigator');
+    // navigation.navigate('TabNavigator');
     if (
       name === '' ||
       email === '' ||
@@ -97,7 +97,7 @@ const SignUpScreen = () => {
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
 
-      <Text style={styles.signInText}>
+      <Text style={styles.signInText} onPress ={() => navigation.navigate('SignIn')}>
         Already have an account? <Text style={styles.signInLink}>Sign In</Text>
       </Text>
       <Text style={styles.signInText} onPress ={() => navigation.navigate('ResetPassword')}>
