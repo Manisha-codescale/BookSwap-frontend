@@ -1,6 +1,5 @@
 import { View, Image, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
-import { MaterialIcons } from '@expo/vector-icons'; 
 import Icon from 'react-native-vector-icons'
 
 const books = [
