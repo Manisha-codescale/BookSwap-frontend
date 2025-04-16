@@ -8,9 +8,15 @@ import {
 } from 'react-native';
 import styles from '../styles/SignUpStyles.js';
 //import {auth, createUserWithEmailAndPassword} from '../firebaseConfig.js';
-import auth from "@react-native-firebase/auth"
+import auth from "@react-native-firebase/auth";
+import {
+  createStaticNavigation,
+  useNavigation,
+} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const SignUpScreen = () => {
+  const navigation = useNavigation();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,6 +25,7 @@ const SignUpScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignUp = async () => {
+    // navigation.navigate('TabNavigator');
     if (
       name === '' ||
       email === '' ||
@@ -42,6 +49,7 @@ const SignUpScreen = () => {
     .catch(error => {
       alert(error.message);
     })
+    
   };
 
   return (
@@ -89,8 +97,11 @@ const SignUpScreen = () => {
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
 
-      <Text style={styles.signInText}>
+      <Text style={styles.signInText} onPress ={() => navigation.navigate('SignIn')}>
         Already have an account? <Text style={styles.signInLink}>Sign In</Text>
+      </Text>
+      <Text style={styles.signInText} onPress ={() => navigation.navigate('ResetPassword')}>
+        Forgot Password? <Text style={styles.signInLink}>Reset Password</Text>
       </Text>
     </ScrollView>
   );

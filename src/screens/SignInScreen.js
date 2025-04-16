@@ -1,7 +1,12 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 //import auth from '@react-native-firebase/auth';
+import {
+  createStaticNavigation,
+  useNavigation,
+} from '@react-navigation/native';
 const SignInScreen = () => {
+  const navigation = useNavigation();
   /* const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const onLogin = () => {
@@ -19,8 +24,12 @@ const SignInScreen = () => {
             <Text style={styles.Signin}>Sign In</Text>
             <TextInput placeholder="Email" style={styles.inputBox} />
             <TextInput placeholder="Password" style={styles.inputBox} />
-            <TouchableOpacity style={styles.signIn}>
+            <TouchableOpacity onPress ={() => navigation.navigate('TabNavigator')} style={styles.signIn}>
                 <Text style={styles.registerText}>Sign In</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress ={() => navigation.navigate('SignUp')} style={styles.signIn} >
+                <Text  style={styles.registerText}>Sign Up</Text>
             </TouchableOpacity>
         </View>
     );
