@@ -23,7 +23,7 @@ import {
 
 GoogleSignin.configure({
   webClientId:
-    '212138581207-io75bs1fco12t8r9fso7rb73juhjq5ba.apps.googleusercontent.com',
+    'GOOGLE_WEB_CLIENT_ID',
 });
 
 const SignInScreen = () => {
