@@ -1,8 +1,10 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from '../styles/ProfileStyles';
+import { useNavigation} from '@react-navigation/native';
 
-const Profile = () => {
+const ProfileScreen = () => {
+  const navigation = useNavigation();
   const user = {
     name: "John Doe",
     email: "johndoe@example.com",
@@ -19,15 +21,18 @@ const Profile = () => {
 
       <Text style={styles.label}>Age:</Text>
       <Text style={styles.value}>{user.age}</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('EditProfile')}>
         <Text style={styles.buttonText}>Edit Profile</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.button, styles.secondaryButton]}>
+      <TouchableOpacity
+        style={[styles.button, styles.secondaryButton]}>
         <Text style={styles.buttonText}>Change Password</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-export default Profile
+export default ProfileScreen;

@@ -22,14 +22,15 @@ const SignInstyles = StyleSheet.create({
   },
   rowView: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   googleContent: {
     backgroundColor: '#007BF3',
     paddingVertical: 10,
-    paddingHorizontal: 70,
     borderRadius: 5,
     marginBottom: 20,
+    width: '80%',
+    alignItems: 'center',
   },
   googleLogo: {
     width: 35,
@@ -39,7 +40,9 @@ const SignInstyles = StyleSheet.create({
   signIn: {
     backgroundColor: '#1d3557',
     paddingVertical: 15,
-    paddingHorizontal: 135,
+    alignItems: 'center',
+    //paddingHorizontal: 135,
+    width:'80%',
     borderRadius: 5,
     marginBottom: 20,
   },

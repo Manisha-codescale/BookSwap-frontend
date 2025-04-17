@@ -12,23 +12,32 @@ import {
 import React, {useState} from 'react';
 import auth, {sendPasswordResetEmail} from '@react-native-firebase/auth';
 import styles from '../styles/SignInStyles.js';
-import {
-  GoogleSignin,
-} from '@react-native-google-signin/google-signin';
-import { GOOGLE_WEB_CLIENT_ID } from '@env';
-import {
-  createStaticNavigation,
-  useNavigation,
-} from '@react-navigation/native';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {GOOGLE_WEB_CLIENT_ID} from '@env';
+import {createStaticNavigation, useNavigation} from '@react-navigation/native';
 
 GoogleSignin.configure({
-  webClientId:
-    'GOOGLE_WEB_CLIENT_ID',
+  webClientId: GOOGLE_WEB_CLIENT_ID,
 });
 
 const SignInScreen = () => {
   const navigation = useNavigation();
   const [isInProgress, setIsInProgress] = useState(false);
+
+   const onGoogleSignIn = async () => {
+    setIsInProgress(true);
+    try {
+      await onGoogleButtonPress();
+      console.log('Signed in with Google!');
+      navigation.navigate('TabNavigator');
+    } catch (err) {
+      console.log('Google sign-in error!');
+      Alert.alert('Error ', err.message);
+    } finally {
+      setIsInProgress(false);
+    }
+  }; 
+
   async function onGoogleButtonPress() {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
     const signInResult = await GoogleSignin.signIn();
@@ -58,6 +67,7 @@ const SignInScreen = () => {
       .then(response => {
         console.log('User login successful', response);
         Alert.alert('Login successful');
+        navigation.navigate('TabNavigator');
       })
       .catch(error => {
         console.log('Firebase error :', error);
@@ -83,6 +93,9 @@ const SignInScreen = () => {
         }
       });
   };
+
+  
+
   const forgotPassword = () => {
     if (!email) {
       Alert.alert('Error', 'Please enter email');
@@ -123,17 +136,19 @@ const SignInScreen = () => {
           Forgot Password?
         </Text>
       </Pressable>
-      <TouchableOpacity style={styles.signIn} onPress ={() => navigation.navigate('TabNavigator')}>
+      <TouchableOpacity style={styles.signIn} onPress={() => onLogin}>
         <Text style={styles.signInText}>Sign In</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.signIn} onPress={() => navigation.navigate('SignUp')}>
+      <TouchableOpacity
+        style={styles.signIn}
+        onPress={() => navigation.navigate('SignUp')}>
         <Text style={styles.signInText}>Sign Up</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.googleContent}
-        onPress={async () => {
-          setIsInProgress(true);
+        onPress={ onGoogleSignIn }
+          /* setIsInProgress(true);
           try {
             await onGoogleButtonPress();
             console.log('Signed in with Google!');
@@ -143,14 +158,16 @@ const SignInScreen = () => {
           } finally {
             setIsInProgress(false);
           }
-        }}
+        }} */
+
         disabled={isInProgress}>
+        
         <View style={styles.rowView}>
-           <Image
+          <Image
             source={require('../assets/googleLogo.png')}
             style={styles.googleLogo}
-          /> 
-          <Text style={styles.signInText}>Sign in with Google</Text>
+          />
+          <Text style={styles.signInText}> {isInProgress ? 'Signing in...' : 'Sign in with Google'}</Text>
         </View>
       </TouchableOpacity>
     </View>

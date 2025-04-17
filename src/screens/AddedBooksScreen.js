@@ -1,4 +1,4 @@
-import { View, Image, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, Text, ScrollView, TouchableOpacity, StyleSheet, MaterialIcons } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons';
 import styles from '../styles/AddedBooksStyles';
@@ -43,9 +43,9 @@ const AddedBooksScreen = () => {
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 {books.map((book, index) => (
                     <View key={index} style={styles.card}>
-                         {/* <TouchableOpacity style={styles.editIcon}>
+                          {/* <TouchableOpacity style={styles.editIcon}>
                             <Icon name = "create-outline" size = {20} color ="555"/>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>  */}
                         <Image source={{ uri: book.image }} style={styles.bookImage} />
                         <View style={styles.bookInfo}>
                             <Text style={styles.name}>{book.name}</Text>
@@ -60,9 +60,9 @@ const AddedBooksScreen = () => {
                                     <View style = {styles.column}> <Text style={styles.condition}>{book.isConditionUsed ? 'Used' : 'New'}</Text></View>
                             </View>
         </View>
-           {/* <TouchableOpacity style={styles.editIcon}>
+           {/*  <TouchableOpacity style={styles.editIcon}>
             <MaterialIcons name="edit" size={20} color="#333" />
-          </TouchableOpacity>  */}
+          </TouchableOpacity>   */}
         </View>
       ))}
     </ScrollView>
