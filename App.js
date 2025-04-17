@@ -4,10 +4,13 @@ import ResetPasswordScreen from './src/screens/ResetPasswordScreen.js';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import DashBoard from './src/screens/DashBoard.js';
+import DashBoardScreen from './src/screens/DashBoardScreen.js';
 import AddedBooks from './src/screens/AddedBooksScreen.js';
-import Profile from './src/screens/Profile.js';
+import ProfileScreen from './src/screens/ProfileScreen.js';
 import SignInScreen from './src/screens/SignInScreen.js';
+import ChangePasswordScreen from './src/screens/ChangePasswordScreen.js';
+import BookScreen from './src/screens/BookScreen.js';
+import EditProfileScreen from './src/screens/EditProfileScreen.js';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +22,7 @@ const App = () => {
       <Tab.Navigator>
         <Tab.Screen
           name="DashBoard"
-          component={DashBoard}
+          component={DashBoardScreen}
           options={{headerShown: false}}
         />
         <Tab.Screen
@@ -29,7 +32,7 @@ const App = () => {
         />
         <Tab.Screen
           name="Profile"
-          component={Profile}
+          component={ProfileScreen}
           options={{headerShown: false}}
         />
       </Tab.Navigator>
@@ -64,22 +67,24 @@ const App = () => {
           component={TabNavigator}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="ChangePassword"
+          component={ChangePasswordScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="BookDetails"
+          component={BookScreen}
+          options={{headerShown: false}}
+        />
+         <Stack.Screen
+          name="EditProfile"
+          component={EditProfileScreen}
+          options={{headerShown: false}}
+        /> 
       </Stack.Navigator>
     </NavigationContainer>
   );
-  // return (
-  //   <NavigationContainer>
-  //     {/* <Stack.Navigator>
-  //         <Stack.Screen name="SignUp" component={SignUpScreen} />
-  //         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-  //       </Stack.Navigator> */}
-  //     <Tab.Navigator>
-  //       <Tab.Screen name="DashBoard" component={DashBoard} options={{ headerShown: false }} />
-  //       <Tab.Screen name="AddedBooks" component={AddedBooks} options={{ headerShown: false }}/>
-  //       <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }}/>
-  //     </Tab.Navigator>
-  //   </NavigationContainer>
-  // );
 };
 
 export default App;
