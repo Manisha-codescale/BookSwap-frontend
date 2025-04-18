@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, Alert, TouchableOpacity, ScrollView, Text, TextInput} from 'react-native';
+import {View, Alert, TouchableOpacity, ScrollView, Text, TextInput} from 'react-native';
 // import {TextInput} from 'react-native-paper';
 import styles from '../styles/ResetPasswordStyles.js';
-import auth from "@react-native-firebase/auth"
+import auth from "@react-native-firebase/auth";
 
 const ResetPasswordScreen = () => {
   const [email, setEmail] = React.useState('');

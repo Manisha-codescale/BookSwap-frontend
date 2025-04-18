@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import React, {useState}from 'react';
 import styles from '../styles/DashBoardStyles';
+import { useNavigation } from '@react-navigation/native';
 
 const DATA = [
   {
@@ -84,7 +85,9 @@ const DATA = [
   },
 ];
 
-const DashBoard = () => {
+const DashBoardScreen = () => {
+
+  const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
@@ -110,7 +113,9 @@ const DashBoard = () => {
         data={DATA}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
+          <View
+            style={styles.itemContainer}
+            onPress ={() => navigation.navigate('BookDetails')}>
             <Image source={{ uri: item.url }} style={styles.image} />
             <View style={styles.detailsContainer}>
               <Text style={styles.name}>{item.name}</Text>
@@ -135,4 +140,4 @@ const DashBoard = () => {
   );
 };
 
-export default DashBoard;
+export default DashBoardScreen;
